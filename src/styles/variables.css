@@ -1,0 +1,89 @@
+:root {
+  /* Editorial Luxury Color Palette */
+  --color-ivory-light: #FDFCF9;
+  --color-ivory: #F8F5EF;
+  --color-ivory-dark: #F0EAE1;
+  
+  --color-champagne-light: #ECE5D8;
+  --color-champagne: #E3D8C6;
+  --color-champagne-dark: #D4C5AD;
+  
+  --color-soft-beige: #CBBBA3;
+  --color-dusty-rose: #C49F96;
+  --color-dusty-rose-light: #E8D9D5;
+  --color-muted-mauve: #977B84;
+  
+  /* Lộng lẫy - Gold & Shimmer Accents */
+  --color-subtle-gold: #C5A059;
+  --color-subtle-gold-light: #E8D2A7;
+  --color-gold-sparkle: #F3E5AB;
+  --color-gold-glow: rgba(197, 160, 89, 0.35);
+  --color-gold-gradient: linear-gradient(135deg, #B8860B 0%, #E5C158 35%, #FFF2B2 50%, #D4AF37 70%, #996515 100%);
+  --color-rose-gold-gradient: linear-gradient(135deg, #8B263E 0%, #C49F96 45%, #E8D2A7 80%, #56212E 100%);
+  
+  --color-burgundy-deep: #431620;
+  --color-burgundy: #56212E;
+  --color-burgundy-soft: #733946;
+  
+  --color-charcoal-pure: #151414;
+  --color-charcoal: #232021;
+  --color-charcoal-muted: #575253;
+  --color-charcoal-light: #847E7F;
+  
+  /* Paper and Borders */
+  --border-editorial: 1px solid rgba(35, 32, 33, 0.08);
+  --border-gold: 1px solid rgba(197, 160, 89, 0.45);
+  --border-delicate: 1px solid rgba(35, 32, 33, 0.06);
+
+  /* Typography Families - Thân thiện & Sang trọng tối đa với Tiếng Việt */
+  --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-display: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-script: 'Dancing Script', 'Alex Brush', cursive;
+  --font-sans: 'Be Vietnam Pro', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-classic: 'Cormorant Garamond', Georgia, serif;
+  
+  /* Fluid Typography Scale */
+  --font-size-xs: clamp(0.72rem, 0.67rem + 0.25vw, 0.82rem);
+  --font-size-sm: clamp(0.85rem, 0.78rem + 0.3vw, 0.95rem);
+  --font-size-base: clamp(0.98rem, 0.9rem + 0.35vw, 1.08rem);
+  --font-size-md: clamp(1.18rem, 1.08rem + 0.5vw, 1.35rem);
+  --font-size-lg: clamp(1.45rem, 1.28rem + 0.75vw, 1.85rem);
+  --font-size-xl: clamp(1.85rem, 1.6rem + 1.25vw, 2.5rem);
+  --font-size-2xl: clamp(2.5rem, 2.1rem + 2vw, 3.8rem);
+  --font-size-3xl: clamp(3.3rem, 2.6rem + 3.5vw, 5.4rem);
+  --font-size-hero: clamp(3.6rem, 2.8rem + 4.5vw, 7.2rem);
+  --font-size-giant: clamp(4.5rem, 3.5rem + 7vw, 10rem);
+  
+  /* Fluid Spacings */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.875rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: clamp(4.5rem, 3.5rem + 4vw, 8rem);
+  --space-section: clamp(5rem, 4rem + 6vw, 10rem);
+
+  /* Elevation and Shadows with Gold Ambient Glow */
+  --shadow-editorial-sm: 0 4px 15px -2px rgba(35, 32, 33, 0.04);
+  --shadow-editorial-md: 0 12px 32px -4px rgba(35, 32, 33, 0.06), 0 4px 12px -2px rgba(35, 32, 33, 0.03);
+  --shadow-editorial-lg: 0 24px 50px -8px rgba(35, 32, 33, 0.09), 0 8px 24px -4px rgba(35, 32, 33, 0.04);
+  --shadow-paper: 0 30px 60px -15px rgba(67, 22, 32, 0.09), 0 0 25px rgba(197, 160, 89, 0.18), 0 0 0 1px rgba(197, 160, 89, 0.25);
+  --shadow-gold-hover: 0 15px 35px -5px rgba(197, 160, 89, 0.35);
+
+  /* Easing Curves */
+  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Durations */
+  --duration-micro: 200ms;
+  --duration-medium: 500ms;
+  --duration-slow: 1000ms;
+  --duration-cinematic: 1800ms;
+
+  /* Layout Containers */
+  --container-max: 1320px;
+  --container-editorial: 1100px;
+  --container-narrow: 840px;
+}

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="theme-color" content="#F8F5EF" />
+
+  <title>Lê Thị Thanh — Graduation 2027 | Trường Đại học Phenikaa</title>
+  <meta name="description"
+    content="Trải nghiệm thiệp mời tốt nghiệp cao cấp dành riêng cho Lê Thị Thanh — Khóa 16, Ngành Luật Kinh tế, Trường Đại học Phenikaa. 20.01.2027. Her Chapter Begins." />
+  <meta name="author" content="Lê Thị Thanh" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Lê Thị Thanh — Graduation Invitation 2027" />
+  <meta property="og:description"
+    content="Trân trọng kính mời quý thầy cô, gia đình và bạn bè đến chung vui cùng Lê Thị Thanh — Khóa 16, Luật Kinh tế, Đại học Phenikaa." />
+  <meta property="og:image" content="/images/hero_portrait.jpg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Lê Thị Thanh — Graduation 2027" />
+  <meta name="twitter:description"
+    content="Một chương khép lại. Một hành trình mới bắt đầu. Lễ Tốt nghiệp Tân Cử nhân Lê Thị Thanh." />
+  <meta name="twitter:image" content="/images/hero_portrait.jpg" />
+
+  <!-- Google Web Fonts: Dancing Script + Alex Brush + Be Vietnam Pro + Playfair Display + Cormorant Garamond -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Dancing+Script:wght@600;700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap"
+    rel="stylesheet" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/src/styles/main.css" />
+</head>
+
+<body>
+
+  <!-- Fine-art Paper Grain Texture Overlay -->
+  <div class="paper-grain-overlay" aria-hidden="true"></div>
+
+  <!-- Falling Celebration Canvas (Cánh Hoa, Mũ Cử Nhân, Điểm 100 Rơi) -->
+  <canvas id="fallingCelebrationCanvas" class="celebration-canvas" aria-hidden="true"></canvas>
+
+  <!-- Audio Element for User's Provided Music -->
+  <audio id="bgmAudio" src="/audio/bgm.mp3" preload="auto" loop></audio>
+
+  <!-- ========================================================================
+       01 — CINEMATIC OPENING SEQUENCE (LỘNG LẪY & HIỆU ỨNG RƠI)
+       ======================================================================== -->
+  <div id="openingCurtain" class="opening-curtain" aria-label="Mở màn thiệp tốt nghiệp">
+    <button id="skipOpeningBtn" class="opening-skip-btn" aria-label="Khám phá ngay">Khám phá thiệp ✨</button>
+
+    <div class="opening-content">
+      <div class="opening-sparkle-icon" aria-hidden="true">✦</div>
+      <p id="openingBadge" class="opening-badge">A New Chapter Begins</p>
+      <div id="openingLine" class="opening-line"></div>
+      <p id="openingYear" class="opening-year">2027</p>
+      <h1 id="openingName" class="opening-name gold-shimmer-text">Lê Thị Thanh</h1>
+      <p id="openingDegree" class="opening-degree">Khóa 16 · Luật Kinh tế · Đại học Phenikaa</p>
+    </div>
+
+    <div id="openingIndicator" class="opening-indicator">
+      <span>Chạm hoặc Cuộn để mở thiệp</span>
+      <div class="scroll-line-anim"></div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       FLOATING MINIMAL CONTROLS (TỐI GIẢN & TINH TẾ)
+       ======================================================================== -->
+  <header class="floating-nav" id="floatingNav">
+    <div class="nav-inner">
+      <div class="nav-controls">
+        <!-- Audio Toggle (Phát nhạc Moments to Memories) -->
+        <button id="btnAudioToggle" class="btn-audio" aria-label="Bật/Tắt nhạc nền">
+          <span class="audio-equalizer">
+            <span class="audio-bar"></span>
+            <span class="audio-bar"></span>
+            <span class="audio-bar"></span>
+          </span>
+          <span id="audioStatusText">Bật Nhạc</span>
+        </button>
+
+        <!-- Menu Toggle Button -->
+        <button id="btnMenuToggle" class="btn-menu-toggle" aria-label="Mở danh mục điều hướng">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Fullscreen Minimal Menu Overlay -->
+  <nav id="menuOverlay" class="menu-overlay" aria-label="Thực đơn trải nghiệm">
+    <button id="btnMenuClose" class="btn-menu-close" aria-label="Đóng menu">&times;</button>
+    <ul class="menu-nav-links">
+      <li class="menu-nav-item"><a href="#hero"><span class="menu-num">01</span>Khởi Đầu · The Opening</a></li>
+      <li class="menu-nav-item"><a href="#chapter"><span class="menu-num">02</span>Chương Cử Nhân · Her Chapter</a></li>
+      <li class="menu-nav-item"><a href="#journey"><span class="menu-num">03</span>Hành Trình · The Journey</a></li>
+      <li class="menu-nav-item"><a href="#memories"><span class="menu-num">04</span>Kỷ Niệm · The Memories</a></li>
+      <li class="menu-nav-item"><a href="#moment"><span class="menu-num">05</span>Ngày Tốt Nghiệp · The Moment</a></li>
+      <li class="menu-nav-item"><a href="#invitation"><span class="menu-num">06</span>Thiệp Mời · The Invitation</a>
+      </li>
+      <li class="menu-nav-item"><a href="#location"><span class="menu-num">07</span>Địa Điểm · Phenikaa Venue</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- ======================================================================
+         02 — HERO SECTION (FASHION COVER & FOCAL POINT)
+         ====================================================================== -->
+    <section id="hero" class="section-hero">
+      <div class="container">
+        <!-- Top Editorial Issue Meta -->
+        <div class="hero-top-meta">
+          <span class="hero-issue">✦ Phenikaa University · Graduation Issue</span>
+          <span class="hero-date-badge">20.01.2027</span>
+        </div>
+
+        <!-- Typography Focal Point: LÊ THỊ THANH -->
+        <div class="hero-title-wrapper">
+          <h1 class="hero-main-title">
+            <span class="gold-shimmer-text">Lê Thị Thanh</span>
+          </h1>
+          <p class="hero-subtitle">Graduation 2027 · Her Chapter Begins</p>
+        </div>
+
+        <!-- Editorial Triad Composition -->
+        <div class="hero-composition">
+          <!-- Left Column -->
+          <div class="hero-side-left">
+            <span class="hero-label">Chuyên Ngành</span>
+            <h2 class="hero-subheading">Luật Kinh tế<br><span
+                style="font-family: var(--font-sans); font-size: 0.95rem; font-style: normal; color: var(--color-charcoal-muted); letter-spacing: 0.12em; text-transform: uppercase;">Economic
+                Law</span></h2>
+            <div style="margin-top: 1.25rem;">
+              <span class="hero-label">Niên Khóa</span>
+              <p
+                style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--color-charcoal); font-weight: 500;">
+                Khóa 16 (2023 — 2027)</p>
+            </div>
+          </div>
+
+          <!-- Center Editorial Image with Golden Shimmer Aura -->
+          <div class="hero-image-frame">
+            <div class="hero-image-inner">
+              <img src="/images/hero_portrait.jpg"
+                alt="Lê Thị Thanh - Tân Cử nhân Luật Kinh tế Khóa 16 Trường Đại học Phenikaa" id="heroImage" />
+              <div class="hero-image-tag">✦ Phenikaa 2027</div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="hero-side-right">
+            <blockquote class="hero-quote">
+              "Một chương khép lại.<br>Một hành trình mới bắt đầu."
+            </blockquote>
+            <div class="hero-academic-badges">
+              <div class="academic-badge-row">
+                <span class="badge-key">Trường:</span>
+                <span class="badge-val">Đại học Phenikaa</span>
+              </div>
+              <div class="academic-badge-row">
+                <span class="badge-key">Khoa:</span>
+                <span class="badge-val">Luật</span>
+              </div>
+              <div class="academic-badge-row">
+                <span class="badge-key">Thời gian:</span>
+                <span class="badge-val">20 tháng 01, 2027</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Bottom Footer Bar -->
+        <div class="hero-footer">
+          <div class="hero-footer-left">
+            <span
+              style="font-family: var(--font-sans); font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-charcoal-muted); font-weight: 500;">Kỷ
+              Niệm Tốt Nghiệp Cử Nhân</span>
+          </div>
+          <div class="hero-scroll-invite">
+            <span>Cuộn để khám phá</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         03 — HER CHAPTER (SECTION 02)
+         ====================================================================== -->
+    <!-- ======================================================================
+         03 — CUỐN LỊCH TỐT NGHIỆP (GRADUATION CALENDAR CARD)
+         ====================================================================== -->
+    <section id="chapter" class="section-calendar">
+      <div class="watermark-bg" aria-hidden="true">20.01.2027</div>
+
+      <div class="container-editorial">
+        <div class="calendar-layout">
+          <!-- Left Column: Portrait & Poetic Note -->
+          <div class="calendar-image-column">
+            <div class="chapter-image-card">
+              <img src="/images/gown_portrait.jpg"
+                alt="Lê Thị Thanh trong trang phục cử nhân tại hành lang Đại học Phenikaa" loading="lazy" />
+              <div class="chapter-badge-overlay">
+                <span class="badge-year">K16</span>
+                <span class="badge-label">Phenikaa</span>
+              </div>
+            </div>
+            <p class="calendar-quote-caption">
+              "Đếm từng ngày thanh xuân chờ giây phút thiêng liêng khoác lên mình tấm áo cử nhân."
+            </p>
+          </div>
+
+          <!-- Right Column: Cuốn Lịch Tốt Nghiệp Giống Mẫu Ảnh Của Bạn -->
+          <div class="calendar-card-column">
+            <div class="graduation-calendar-card" id="gradCalendarCard">
+              <!-- Floating delicate doodles like user's sample picture -->
+              <span class="cal-doodle doodle-cap" aria-hidden="true">🎓</span>
+              <span class="cal-doodle doodle-score" aria-hidden="true">💯</span>
+              <span class="cal-doodle doodle-petal" aria-hidden="true">🌸</span>
+
+              <!-- Calendar Header in Calligraphy Script -->
+              <div class="cal-header">
+                <h2 class="cal-title">Lịch Tốt Nghiệp</h2>
+                <p class="cal-subtitle">Tháng 01 năm 2027</p>
+              </div>
+
+              <!-- Weekdays T2 - CN -->
+              <div class="cal-weekdays">
+                <span>T2</span>
+                <span>T3</span>
+                <span>T4</span>
+                <span>T5</span>
+                <span>T6</span>
+                <span>T7</span>
+                <span>CN</span>
+              </div>
+
+              <!-- Calendar Days Grid (January 2027) -->
+              <div class="cal-days-grid">
+                <!-- Row 1: Jan 1 is Friday (T6) -->
+                <span class="cal-day empty"></span>
+                <span class="cal-day empty"></span>
+                <span class="cal-day empty"></span>
+                <span class="cal-day empty"></span>
+                <span class="cal-day">1</span>
+                <span class="cal-day">2</span>
+                <span class="cal-day">3</span>
+
+                <!-- Row 2 -->
+                <span class="cal-day">4</span>
+                <span class="cal-day">5</span>
+                <span class="cal-day">6</span>
+                <span class="cal-day">7</span>
+                <span class="cal-day">8</span>
+                <span class="cal-day">9</span>
+                <span class="cal-day">10</span>
+
+                <!-- Row 3 -->
+                <span class="cal-day">11</span>
+                <span class="cal-day">12</span>
+                <span class="cal-day">13</span>
+                <span class="cal-day">14</span>
+                <span class="cal-day">15</span>
+                <span class="cal-day">16</span>
+                <span class="cal-day">17</span>
+
+                <!-- Row 4: Day 20 (Thứ 4) is GRADUATION DAY with Star Outline Badge -->
+                <span class="cal-day">18</span>
+                <span class="cal-day">19</span>
+                <div class="cal-day special-event-day" id="calSpecialDay"
+                  title="Ngày Tốt Nghiệp Lê Thị Thanh: 20/01/2027">
+                  <svg class="star-outline-svg" viewBox="0 0 60 60" aria-hidden="true">
+                    <polygon
+                      points="30,4 37.5,20.5 55,21.5 40.5,32.5 46,49.5 30,38.5 14,49.5 19.5,32.5 5,21.5 22.5,20.5"
+                      fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"
+                      stroke-linecap="round" />
+                  </svg>
+                  <span class="day-number">20</span>
+                </div>
+                <span class="cal-day">21</span>
+                <span class="cal-day">22</span>
+                <span class="cal-day">23</span>
+                <span class="cal-day">24</span>
+
+                <!-- Row 5 -->
+                <span class="cal-day">25</span>
+                <span class="cal-day">26</span>
+                <span class="cal-day">27</span>
+                <span class="cal-day">28</span>
+                <span class="cal-day">29</span>
+                <span class="cal-day">30</span>
+                <span class="cal-day">31</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         04 — THE JOURNEY (UNIVERSITY MILESTONES)
+         ====================================================================== -->
+    <section id="journey" class="section-journey">
+      <div class="container">
+        <div class="section-header-centered">
+          <span class="editorial-tag">Hành Trình</span>
+          <h2>Dấu Ấn 2023 — 2027</h2>
+          <p>Từng bước đi khắc ghi thanh xuân rực rỡ dưới mái trường Đại học Phenikaa</p>
+        </div>
+
+        <div class="journey-editorial-grid" id="journeyTimeline">
+          <article class="journey-card">
+            <span class="journey-chapter-mark">I</span>
+            <span class="journey-year-tag">2023</span>
+            <h3>Khởi Đầu Mới</h3>
+            <p>Bước chân đầu tiên vào giảng đường Phenikaa với bao hoài bão, tò mò và khát khao chinh phục tri thức
+              ngành Luật Kinh tế.</p>
+          </article>
+
+          <article class="journey-card">
+            <span class="journey-chapter-mark">II</span>
+            <span class="journey-year-tag">2024</span>
+            <h3>Rèn Giũa Tư Duy</h3>
+            <p>Hòa mình vào thế giới của điều luật, án lệ, những buổi tranh biện sôi nổi và trau dồi nhãn quan kinh tế
+              sâu sắc.</p>
+          </article>
+
+          <article class="journey-card">
+            <span class="journey-chapter-mark">III</span>
+            <span class="journey-year-tag">2025</span>
+            <h3>Bản Lĩnh & Trưởng Thành</h3>
+            <p>Những phiên tòa giả định căng thẳng, các kỳ thực tập thực tế cùng tình bạn gắn kết dưới tán cây xanh
+              Phenikaa.</p>
+          </article>
+
+          <article class="journey-card">
+            <span class="journey-chapter-mark">IV</span>
+            <span class="journey-year-tag">2026 — 2027</span>
+            <h3>Mùa Tốt Nghiệp</h3>
+            <p>Khép lại 4 năm trọn vẹn với tấm bằng Cử nhân danh giá, sẵn sàng tự tin bước sang chương mới của cuộc đời.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         05 — PHOTO GALLERY COLLAGE (THE MEMORIES)
+         ====================================================================== -->
+    <section id="memories" class="section-gallery">
+      <div class="container">
+        <div class="section-header-centered">
+          <span class="editorial-tag">Khoảnh Khắc</span>
+          <h2>Góc Kỷ Niệm Thanh Xuân</h2>
+          <p>Những thước phim nhẹ nhàng ghi lại nụ cười và dấu ấn cử nhân</p>
+        </div>
+
+        <div class="gallery-editorial-collage" id="galleryGrid">
+          <!-- Gallery Item 1 -->
+          <div class="gallery-item" data-full="/images/hero_portrait.jpg"
+            data-caption="The Poise & Grace — Khoảnh khắc thanh lịch đón chào tương lai">
+            <img src="/images/hero_portrait.jpg" alt="Lê Thị Thanh - Khoảnh khắc thanh lịch" loading="lazy" />
+            <div class="gallery-overlay">
+              <span class="gallery-tag-pill">Portrait 01</span>
+              <h4 class="gallery-item-title">The Poise & Grace</h4>
+              <p class="gallery-item-sub">Thanh lịch và tự tin</p>
+            </div>
+          </div>
+
+          <!-- Gallery Item 2 -->
+          <div class="gallery-item" data-full="/images/gown_portrait.jpg"
+            data-caption="Academic Regalia — Dấu ấn ngày tốt nghiệp tại Phenikaa">
+            <img src="/images/gown_portrait.jpg" alt="Lê Thị Thanh trong áo cử nhân" loading="lazy" />
+            <div class="gallery-overlay">
+              <span class="gallery-tag-pill">Graduation 2027</span>
+              <h4 class="gallery-item-title">Academic Regalia</h4>
+              <p class="gallery-item-sub">Dấu ấn cử nhân tại giảng đường Phenikaa</p>
+            </div>
+          </div>
+
+          <!-- Gallery Item 3 -->
+          <div class="gallery-item" data-full="/images/study_portrait.jpg"
+            data-caption="Quiet Dedication — Những giờ phút miệt mài bên trang sách luật">
+            <img src="/images/study_portrait.jpg" alt="Lê Thị Thanh tại thư viện đại học" loading="lazy" />
+            <div class="gallery-overlay">
+              <span class="gallery-tag-pill">Library Memories</span>
+              <h4 class="gallery-item-title">Quiet Dedication</h4>
+              <p class="gallery-item-sub">Những giờ phút miệt mài bên trang sách luật</p>
+            </div>
+          </div>
+
+          <!-- Gallery Item 4 -->
+          <div class="gallery-item" data-full="/images/celebration_portrait.jpg"
+            data-caption="The Sunlit Smile — Nụ cười rạng rỡ của tuổi thanh xuân">
+            <img src="/images/celebration_portrait.jpg" alt="Nụ cười rạng rỡ trong khuôn viên trường" loading="lazy" />
+            <div class="gallery-overlay">
+              <span class="gallery-tag-pill">Campus Life</span>
+              <h4 class="gallery-item-title">The Sunlit Smile</h4>
+              <p class="gallery-item-sub">Nụ cười rạng rỡ của tuổi thanh xuân</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         06 — GRADUATION DAY (HERO MOMENT 02)
+         ====================================================================== -->
+    <section id="moment" class="section-moment">
+      <div class="moment-backdrop" style="background-image: url('/images/gown_portrait.jpg');" aria-hidden="true"></div>
+
+      <div class="container-narrow">
+        <div class="moment-content">
+          <span class="editorial-tag" style="color: var(--color-subtle-gold-light);">Dấu Mốc Trọng Đại</span>
+
+          <div>
+            <div class="moment-date-huge gold-shimmer-text">20.01.2027</div>
+            <div class="moment-month-year">Thứ Tư · Ngày 20 Tháng 01 Năm 2027</div>
+          </div>
+
+          <div class="editorial-line" style="max-width: 180px; background: rgba(197, 160, 89, 0.5);"></div>
+
+          <h3 class="moment-name-title">Lê Thị Thanh</h3>
+
+          <div class="moment-details-pill">
+            <span>Trường Đại học Phenikaa</span>
+            <span style="opacity: 0.5;">·</span>
+            <span>Ngành Luật Kinh tế</span>
+            <span style="opacity: 0.5;">·</span>
+            <span>Khóa 16</span>
+          </div>
+
+          <p
+            style="font-family: var(--font-serif); font-size: 1.25rem; font-style: italic; max-width: 600px; color: rgba(253, 252, 249, 0.9); margin-top: 1rem; line-height: 1.7;">
+            "Cảm ơn vì đã luôn là một phần ý nghĩa trong chặng đường bốn năm thanh xuân của Thanh."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         07 — REAL-TIME COUNTDOWN
+         ====================================================================== -->
+    <section class="section-countdown" aria-label="Đồng hồ đếm ngược đến ngày tốt nghiệp">
+      <div class="container-editorial">
+        <div class="countdown-container">
+          <div class="countdown-block">
+            <span class="countdown-num" id="cdDays">00</span>
+            <span class="countdown-label">Ngày</span>
+          </div>
+          <div class="countdown-block">
+            <span class="countdown-num" id="cdHours">00</span>
+            <span class="countdown-label">Giờ</span>
+          </div>
+          <div class="countdown-block">
+            <span class="countdown-num" id="cdMinutes">00</span>
+            <span class="countdown-label">Phút</span>
+          </div>
+          <div class="countdown-block">
+            <span class="countdown-num" id="cdSeconds">00</span>
+            <span class="countdown-label">Giây</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         08 — THE INVITATION (BESPOKE PAPER CARD EXPERIENCE)
+         ====================================================================== -->
+    <section id="invitation" class="section-invitation">
+      <div class="container">
+        <div class="invitation-card-container">
+          <div class="invitation-card" id="invitationCard">
+            <!-- Wax Seal Accent with Golden Star -->
+            <div class="invitation-seal" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path
+                  d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+              </svg>
+            </div>
+
+            <p class="invitation-tag">Trân Trọng Kính Mời</p>
+            <p class="invitation-recipient">Quý Thầy Cô, Gia Đình & Bạn Bè Thân Quý</p>
+
+            <p
+              style="font-family: var(--font-sans); font-size: 0.82rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-charcoal-muted); margin-bottom: 0.5rem; font-weight: 500;">
+              Đến chung vui cùng Tân Cử nhân</p>
+            <h2 class="invitation-guest-name gold-shimmer-text">Lê Thị Thanh</h2>
+            <p class="invitation-event-badge">Lễ Tốt Nghiệp Đại Học · Khóa 16</p>
+
+            <p class="invitation-letter-text">
+              Sự hiện diện, những lời chúc phúc ấm áp và những cái ôm thân tình của bạn sẽ là món quà vô giá nhất trong
+              ngày Thanh chính thức đón nhận tấm bằng Cử nhân Luật Kinh tế tại Trường Đại học Phenikaa.
+            </p>
+
+            <div class="invitation-details-grid">
+              <div class="invitation-info-item">
+                <span class="info-label">Thời Gian</span>
+                <span class="info-value">08:00 — 11:30</span>
+                <span
+                  style="font-size: 0.82rem; color: var(--color-charcoal-muted); margin-top: 0.2rem;">20.01.2027</span>
+              </div>
+              <div class="invitation-info-item">
+                <span class="info-label">Địa Điểm</span>
+                <span class="info-value">Hội trường A9-A10</span>
+                <span style="font-size: 0.82rem; color: var(--color-charcoal-muted); margin-top: 0.2rem;">Đại học
+                  Phenikaa</span>
+              </div>
+              <div class="invitation-info-item">
+                <span class="info-label">Chụp Ảnh</span>
+                <span class="info-value">09:30 — 11:30</span>
+                <span style="font-size: 0.82rem; color: var(--color-charcoal-muted); margin-top: 0.2rem;">Quảng trường
+                  trung tâm</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="invitation-actions">
+              <button id="btnAddToCalendar" class="btn-luxury-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span>Lưu Vào Lịch Hẹn</span>
+              </button>
+
+              <button id="btnOpenRsvp" class="btn-luxury-secondary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path
+                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                  </path>
+                </svg>
+                <span>Gửi Lời Chúc & Xác Nhận</span>
+              </button>
+
+              <button id="btnShareCard" class="btn-luxury-secondary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="18" cy="5" r="3"></circle>
+                  <circle cx="6" cy="12" r="3"></circle>
+                  <circle cx="18" cy="19" r="3"></circle>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+                <span>Chia Sẻ Thiệp</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         09 — VENUE & MAP
+         ====================================================================== -->
+    <section id="location" class="section-location">
+      <div class="container-editorial">
+        <div class="location-grid">
+          <!-- Text Details -->
+          <div class="location-details">
+            <span class="editorial-tag">Địa Điểm Tổ Chức</span>
+            <h2>Trường Đại học Phenikaa</h2>
+            <p class="location-address">
+              Đường Tố Hữu, Phường Yên Nghĩa, Quận Hà Đông, TP. Hà Nội.<br>
+              <em>(Hội trường A9-A10 & Khuôn viên Quảng trường Sinh viên)</em>
+            </p>
+
+            <ul class="location-schedule-list">
+              <li class="schedule-item">
+                <span class="schedule-time">08:00 — 09:30</span>
+                <span class="schedule-title">Lễ Trao Bằng Tốt Nghiệp Chính Thức (Hội trường A9-A10)</span>
+              </li>
+              <li class="schedule-item">
+                <span class="schedule-time">09:30 — 11:30</span>
+                <span class="schedule-title">Chụp ảnh kỷ niệm cùng gia đình, thầy cô & bạn bè tại khuôn viên</span>
+              </li>
+              <li class="schedule-item">
+                <span class="schedule-time">Lưu ý:</span>
+                <span class="schedule-title">Khuôn viên có bãi đỗ xe ô tô và xe máy rộng rãi ngay cổng chính</span>
+              </li>
+            </ul>
+
+            <div>
+              <a href="https://maps.app.goo.gl/v27J6cSgzDesR6of7" target="_blank" rel="noopener noreferrer"
+                class="btn-luxury-primary" style="display: inline-flex;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span>Mở Bản Đồ Google Maps</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Minimal Visual Map Card -->
+          <div class="location-card-visual">
+            <div class="location-visual-header">
+              <div class="location-pin-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+              <div>
+                <h4 style="font-family: var(--font-serif); font-size: 1.25rem;">Phenikaa Campus</h4>
+                <p
+                  style="font-size: 0.8rem; color: var(--color-subtle-gold); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;">
+                  Hà Đông, Hà Nội</p>
+              </div>
+            </div>
+
+            <div class="location-visual-map-preview">
+              <div class="map-grid-pattern"></div>
+              <div class="map-preview-tag">
+                📍 Trường Đại học Phenikaa
+              </div>
+            </div>
+
+            <p style="font-size: 0.88rem; color: var(--color-charcoal-muted); text-align: center;">
+              Dễ dàng di chuyển bằng xe buýt BRT 01 hoặc phương tiện cá nhân.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         10 — THE NEXT CHAPTER (FINAL EXPERIENCE & OUTRO)
+         ====================================================================== -->
+    <section class="section-outro">
+      <div class="container-narrow">
+        <div class="outro-content">
+          <span class="outro-tag">Her Chapter Begins</span>
+
+          <div class="editorial-line" style="max-width: 80px;"></div>
+
+          <p class="outro-quote-1">
+            "The end of one chapter."
+          </p>
+
+          <p class="outro-quote-2">
+            "The beginning of another."
+          </p>
+
+          <div class="outro-signature">
+            <div class="outro-name gold-shimmer-text">Phenikaa University · 2027</div>
+            <div class="outro-year"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       RSVP & GUESTBOOK MODAL
+       ======================================================================== -->
+  <div id="rsvpModal" class="rsvp-modal" aria-hidden="true" role="dialog" aria-labelledby="rsvpTitle">
+    <div class="rsvp-modal-card">
+      <button id="btnCloseRsvp" class="rsvp-modal-close" aria-label="Đóng bảng xác nhận">&times;</button>
+
+      <span class="editorial-tag">Xác Nhận Tham Dự</span>
+      <h3 id="rsvpTitle"
+        style="font-family: var(--font-serif); font-size: 1.8rem; margin-top: 0.5rem; color: var(--color-charcoal);">Gửi
+        Lời Chúc Đến Thanh</h3>
+      <p style="font-size: 0.9rem; color: var(--color-charcoal-muted); margin-top: 0.25rem;">
+        Lời chúc và sự hiện diện của bạn sẽ là niềm vui rất lớn của Thanh trong ngày tốt nghiệp!
+      </p>
+
+      <form id="rsvpForm" class="rsvp-form">
+        <div class="form-group">
+          <label for="rsvpName">Tên của bạn *</label>
+          <input type="text" id="rsvpName" class="form-input" placeholder="" required />
+        </div>
+
+        <div class="form-group">
+          <label for="rsvpAttendance">Bạn sẽ đến chung vui chứ?</label>
+          <select id="rsvpAttendance" class="form-select">
+            <option value="yes">Chắc chắn mình sẽ đến tham dự ✨</option>
+            <option value="maybe">Mình sẽ cố gắng sắp xếp thời gian</option>
+            <option value="remotely">Tiếc quá mình gửi lời chúc từ xa 💌</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="rsvpMessage">Lời nhắn gửi / Lời chúc mừng *</label>
+          <textarea id="rsvpMessage" class="form-textarea" rows="4" placeholder="Gửi lời chúc tốt đẹp nhất đến Thanh..."
+            required></textarea>
+        </div>
+
+        <button type="submit" class="btn-luxury-primary"
+          style="width: 100%; justify-content: center; margin-top: 0.5rem;">
+          <span>Gửi Lời Chúc Yêu Thương</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       LIGHTBOX MODAL
+       ======================================================================== -->
+  <div id="lightboxModal" class="lightbox-modal" aria-hidden="true" role="dialog">
+    <div class="lightbox-content">
+      <button id="btnLightboxClose" class="lightbox-close" aria-label="Đóng ảnh">&times;</button>
+      <img id="lightboxImg" class="lightbox-img" src="" alt="Xem ảnh phóng to" />
+      <p id="lightboxCaption" class="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <!-- Toast Notification Bar -->
+  <div id="toastNotification" class="toast-notification" role="status" aria-live="polite">
+    Đã sao chép liên kết thiệp mời!
+  </div>
+
+  <!-- JavaScript Entry Point -->
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
