@@ -11,8 +11,10 @@ class CelebrationCanvas {
     this.ctx = this.canvas.getContext('2d');
     this.particles = [];
     const isMobile = window.innerWidth < 768;
-    this.maxParticles = isMobile ? 12 : 22;
+    // Item 18: Desktop ~10–20 max, Mobile ~5–10 max. Soft and subtle.
+    this.maxParticles = isMobile ? 6 : 14;
     this.types = ['petal', 'cap', 'sparkle'];
+    this.burstParticles = [];
     this.running = true;
 
     this.resize();
@@ -41,22 +43,22 @@ class CelebrationCanvas {
     else if (rand > 0.5) type = 'sparkle';
 
     const baseSize = isMobile
-      ? (type === 'sparkle' ? 2.5 : Math.random() * 4 + 8)
-      : (type === 'sparkle' ? 3.5 : Math.random() * 6 + 11);
+      ? (type === 'sparkle' ? 2 : Math.random() * 3 + 6)
+      : (type === 'sparkle' ? 2.8 : Math.random() * 4 + 8);
 
     return {
       x: Math.random() * this.width,
       y: y,
       type: type,
       size: baseSize,
-      speedY: Math.random() * 0.5 + 0.4,
-      speedX: (Math.random() - 0.5) * 0.4,
+      speedY: Math.random() * 0.35 + 0.25,
+      speedX: (Math.random() - 0.5) * 0.3,
       rotation: Math.random() * Math.PI * 2,
-      rotationSpeed: (Math.random() - 0.5) * 0.02,
+      rotationSpeed: (Math.random() - 0.5) * 0.015,
       swayOffset: Math.random() * Math.PI * 2,
-      swaySpeed: Math.random() * 0.012 + 0.008,
-      swayAmplitude: Math.random() * 1.2 + 0.6,
-      opacity: Math.random() * 0.35 + 0.55
+      swaySpeed: Math.random() * 0.01 + 0.006,
+      swayAmplitude: Math.random() * 1.0 + 0.5,
+      opacity: Math.random() * 0.25 + 0.35
     };
   }
 
@@ -68,16 +70,16 @@ class CelebrationCanvas {
     }
   }
 
-  spawnBurst(originX, originY, count = 10) {
+  // Item 4: Gentle rising float for 1.5-2s, runs only once
+  spawnBurst(originX, originY, count = 8) {
     for (let i = 0; i < count; i++) {
       const p = this.createParticle(originY);
-      p.x = originX + (Math.random() - 0.5) * 60;
-      p.speedY = Math.random() * 1.2 + 0.6;
-      p.speedX = (Math.random() - 0.5) * 2;
-      this.particles.push(p);
-    }
-    if (this.particles.length > 30) {
-      this.particles.splice(0, this.particles.length - 30);
+      p.x = originX + (Math.random() - 0.5) * 50;
+      p.speedY = -(Math.random() * 1.1 + 0.5); // Rise gently upwards
+      p.speedX = (Math.random() - 0.5) * 1.2;
+      p.lifetime = Math.floor(Math.random() * 25 + 75); // ~1.5 seconds
+      p.maxLife = p.lifetime;
+      this.burstParticles.push(p);
     }
   }
 
@@ -170,6 +172,24 @@ class CelebrationCanvas {
       if (p.x > this.width + 30) p.x = -20;
     }
 
+    // Render one-time rising burst particles (Item 4)
+    for (let i = this.burstParticles.length - 1; i >= 0; i--) {
+      const p = this.burstParticles[i];
+      p.lifetime--;
+      p.x += p.speedX;
+      p.y += p.speedY;
+      p.rotation += p.rotationSpeed;
+      p.opacity = Math.max(0, (p.lifetime / p.maxLife) * 0.55);
+
+      if (p.type === 'petal') this.drawPetal(p);
+      else if (p.type === 'cap') this.drawCap(p);
+      else if (p.type === 'sparkle') this.drawSparkle(p);
+
+      if (p.lifetime <= 0) {
+        this.burstParticles.splice(i, 1);
+      }
+    }
+
     requestAnimationFrame(() => this.animate());
   }
 }
@@ -227,6 +247,7 @@ class MusicManager {
 function initInvitationCover(musicMgr, celebration) {
   const cover = document.getElementById('invitationCover');
   const btnOpen = document.getElementById('btnOpenCover');
+  const hero = document.getElementById('hero');
   if (!cover) return;
 
   let isOpened = false;
@@ -234,19 +255,18 @@ function initInvitationCover(musicMgr, celebration) {
     if (isOpened) return;
     isOpened = true;
 
-    if (e && e.clientX && e.clientY) {
-      celebration?.spawnBurst(e.clientX, e.clientY, 12);
-    } else {
-      celebration?.spawnBurst(window.innerWidth / 2, window.innerHeight / 2, 12);
-    }
+    const posX = e && e.clientX ? e.clientX : window.innerWidth / 2;
+    const posY = e && e.clientY ? e.clientY : window.innerHeight / 2;
+    celebration?.spawnBurst(posX, posY, 8);
 
     cover.classList.add('opened');
+    hero?.classList.add('hero-revealed');
     musicMgr?.play();
 
     // Remove cover from DOM flow after animation finishes
     setTimeout(() => {
       cover.style.display = 'none';
-    }, 1200);
+    }, 1100);
   };
 
   btnOpen?.addEventListener('click', openCover);
@@ -261,19 +281,38 @@ function initCountdown() {
   const cdMinutes = document.getElementById('cdMinutes');
   const cdSeconds = document.getElementById('cdSeconds');
 
-  if (!cdDays) return;
+  if (!cdDays || !cdHours || !cdMinutes || !cdSeconds) return;
 
   const targetDate = new Date(graduationConfig.event.isoDateTime).getTime();
 
-  function update() {
+  function animateDigit(elem, newVal, isInitial = false) {
+    if (elem.textContent === newVal) return;
+    if (isInitial || !elem.textContent || elem.textContent === '--') {
+      elem.textContent = newVal;
+      return;
+    }
+    elem.classList.add('slide-out');
+    setTimeout(() => {
+      elem.textContent = newVal;
+      elem.classList.remove('slide-out');
+      elem.classList.add('slide-in');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          elem.classList.remove('slide-in');
+        });
+      });
+    }, 140);
+  }
+
+  function update(isInitial = false) {
     const now = new Date().getTime();
     const difference = targetDate - now;
 
     if (difference <= 0) {
-      cdDays.textContent = '00';
-      cdHours.textContent = '00';
-      cdMinutes.textContent = '00';
-      cdSeconds.textContent = '00';
+      animateDigit(cdDays, '00', isInitial);
+      animateDigit(cdHours, '00', isInitial);
+      animateDigit(cdMinutes, '00', isInitial);
+      animateDigit(cdSeconds, '00', isInitial);
       return;
     }
 
@@ -282,15 +321,20 @@ function initCountdown() {
     const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-    cdDays.textContent = String(days).padStart(2, '0');
-    cdHours.textContent = String(hours).padStart(2, '0');
-    cdMinutes.textContent = String(minutes).padStart(2, '0');
-    cdSeconds.textContent = String(seconds).padStart(2, '0');
+    const dStr = String(days).padStart(2, '0');
+    const hStr = String(hours).padStart(2, '0');
+    const mStr = String(minutes).padStart(2, '0');
+    const sStr = String(seconds).padStart(2, '0');
+
+    animateDigit(cdDays, dStr, isInitial);
+    animateDigit(cdHours, hStr, isInitial);
+    animateDigit(cdMinutes, mStr, isInitial);
+    animateDigit(cdSeconds, sStr, isInitial);
   }
 
   // Run calculation immediately
-  update();
-  setInterval(update, 1000);
+  update(true);
+  setInterval(() => update(false), 1000);
 }
 
 /* ==========================================================================
@@ -757,23 +801,60 @@ function initAdminDashboard() {
 }
 
 /* ==========================================================================
-   08 — LIGHTBOX MODAL FOR GALLERY
+   08 — LIGHTBOX MODAL FOR GALLERY (PREMIUM EDITORIAL VIEWER)
    ========================================================================== */
 function initLightbox() {
   const items = document.querySelectorAll('.memory-image-container');
   const modal = document.getElementById('lightboxModal');
   const img = document.getElementById('lightboxImg');
   const caption = document.getElementById('lightboxCaption');
+  const counter = document.getElementById('lightboxCounter');
   const closeBtn = document.getElementById('btnLightboxClose');
+  const prevBtn = document.getElementById('btnLightboxPrev');
+  const nextBtn = document.getElementById('btnLightboxNext');
 
   if (!modal || !items.length) return;
 
-  items.forEach(item => {
+  const galleryData = Array.from(items).map(item => ({
+    src: item.getAttribute('data-full') || '',
+    caption: item.getAttribute('data-caption') || ''
+  }));
+
+  let currentIndex = 0;
+
+  function renderImage(index, animate = true) {
+    currentIndex = (index + galleryData.length) % galleryData.length;
+    const current = galleryData[currentIndex];
+
+    if (counter) {
+      counter.textContent = `0${currentIndex + 1} / 0${galleryData.length}`;
+    }
+
+    if (caption) {
+      caption.textContent = current.caption;
+    }
+
+    if (img) {
+      if (animate) {
+        img.style.opacity = '0';
+        img.style.transform = 'scale(0.97)';
+        setTimeout(() => {
+          img.src = current.src;
+          img.style.opacity = '1';
+          img.style.transform = 'scale(1)';
+        }, 120);
+      } else {
+        img.src = current.src;
+        img.style.opacity = '1';
+        img.style.transform = 'scale(1)';
+      }
+    }
+  }
+
+  items.forEach((item, idx) => {
     item.addEventListener('click', () => {
-      const fullSrc = item.getAttribute('data-full');
-      const text = item.getAttribute('data-caption');
-      if (img) img.src = fullSrc;
-      if (caption) caption.textContent = text;
+      currentIndex = idx;
+      renderImage(currentIndex, false);
       modal.classList.add('active');
       modal.setAttribute('aria-hidden', 'false');
     });
@@ -785,13 +866,48 @@ function initLightbox() {
   };
 
   closeBtn?.addEventListener('click', closeModal);
+
+  prevBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    renderImage(currentIndex - 1);
+  });
+
+  nextBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    renderImage(currentIndex + 1);
+  });
+
   modal.addEventListener('click', (e) => {
     if (e.target === modal) closeModal();
   });
 
+  // Keyboard navigation (Item 9)
   window.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('active')) return;
     if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft') renderImage(currentIndex - 1);
+    if (e.key === 'ArrowRight') renderImage(currentIndex + 1);
   });
+
+  // Mobile Touch Swipe Navigation (Item 9)
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  modal.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  modal.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchEndX - touchStartX;
+    if (Math.abs(diff) > 45) {
+      if (diff > 0) {
+        renderImage(currentIndex - 1); // Swipe right -> prev
+      } else {
+        renderImage(currentIndex + 1); // Swipe left -> next
+      }
+    }
+  }, { passive: true });
 }
 
 /* ==========================================================================
@@ -817,7 +933,101 @@ function initNavigation() {
 }
 
 /* ==========================================================================
-   10 — INITIALIZATION ON DOM READY
+   10 — SCROLL REVEAL SYSTEM (INTERSECTION OBSERVER)
+   ========================================================================== */
+function initScrollReveal() {
+  const headlines = document.querySelectorAll('.editorial-section-title, .chapter-big-headline, .location-main-title, .rsvp-big-headline');
+  headlines.forEach(el => el.classList.add('reveal-headline'));
+
+  const images = document.querySelectorAll('.chapter-image-wrapper, .memory-image-container');
+  images.forEach(el => el.classList.add('reveal-image'));
+
+  const textBlocks = document.querySelectorAll('.editorial-section-sub, .chapter-narrative, .chapter-editorial-quote, .invitation-letter-body, .location-accordion, .rsvp-inline-form');
+  textBlocks.forEach(el => el.classList.add('reveal-on-scroll'));
+
+  const allRevealElements = document.querySelectorAll('.reveal-headline, .reveal-image, .reveal-on-scroll, .reveal-stagger-item');
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const delay = el.getAttribute('data-delay');
+        if (delay) {
+          setTimeout(() => {
+            el.classList.add('is-revealed');
+          }, parseInt(delay, 10));
+        } else {
+          el.classList.add('is-revealed');
+        }
+        obs.unobserve(el);
+      }
+    });
+  }, {
+    root: null,
+    rootMargin: '0px 0px -6% 0px',
+    threshold: 0.1
+  });
+
+  allRevealElements.forEach(el => observer.observe(el));
+}
+
+/* ==========================================================================
+   11 — TIMELINE SCROLL PROGRESS & GLOW DOT ACTIVATION
+   ========================================================================== */
+function initTimelineScroll() {
+  const timeline = document.querySelector('.cinematic-timeline');
+  const scrollFill = document.getElementById('timelineScrollFill');
+  const milestones = document.querySelectorAll('.timeline-milestone');
+  if (!timeline || !scrollFill) return;
+
+  const updateProgress = () => {
+    const rect = timeline.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const startY = windowHeight * 0.7;
+    const progress = (startY - rect.top) / rect.height;
+    const clamped = Math.max(0, Math.min(1, progress));
+    scrollFill.style.transform = `scaleY(${clamped})`;
+  };
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress, { passive: true });
+  updateProgress();
+
+  const dotObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-active');
+      }
+    });
+  }, {
+    rootMargin: '0px 0px -15% 0px',
+    threshold: 0.2
+  });
+
+  milestones.forEach(m => dotObserver.observe(m));
+}
+
+/* ==========================================================================
+   12 — MOBILE GALLERY SCROLL COUNTER SYNCHRONIZER
+   ========================================================================== */
+function initMobileGalleryIndicator() {
+  const scrollContainer = document.querySelector('.memories-editorial-scroll');
+  const counterTag = document.getElementById('galleryActiveCounter');
+  const slides = document.querySelectorAll('.memory-magazine-slide');
+  if (!scrollContainer || !counterTag || !slides.length) return;
+
+  const updateCounter = () => {
+    const scrollLeft = scrollContainer.scrollLeft;
+    const slideWidth = slides[0].offsetWidth;
+    const activeIdx = Math.min(Math.round(scrollLeft / (slideWidth + 16)), slides.length - 1);
+    counterTag.textContent = `0${activeIdx + 1} / 0${slides.length}`;
+  };
+
+  scrollContainer.addEventListener('scroll', updateCounter, { passive: true });
+}
+
+/* ==========================================================================
+   13 — INITIALIZATION ON DOM READY
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
   const celebration = new CelebrationCanvas();
@@ -831,4 +1041,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAdminDashboard();
   initLightbox();
   initNavigation();
+  initScrollReveal();
+  initTimelineScroll();
+  initMobileGalleryIndicator();
 });
