@@ -126,5 +126,11 @@ export const graduationConfig = {
     title: "Lê Thị Thanh — Graduation Invitation 2027 | Phenikaa University",
     description: "Trải nghiệm thiệp mời tốt nghiệp cao cấp dành riêng cho Lê Thị Thanh — Khóa 16, Ngành Luật Kinh tế, Trường Đại học Phenikaa.",
     ogImage: "/images/hero_portrait.jpg"
+  },
+
+  // Cấu hình Quản lý RSVP & Bảng Lời chúc
+  rsvpConfig: {
+    adminPin: "912004", // Mã PIN để Thanh mở xem danh sách và xuất Excel
+    googleSheetWebhookUrl: "" // URL Google Apps Script nếu muốn tự động đồng bộ về Google Sheets cá nhân
   }
 };
